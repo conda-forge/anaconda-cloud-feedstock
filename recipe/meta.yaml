@@ -1,5 +1,5 @@
 {% set name = "anaconda-cloud" %}
-{% set version = "0.1.0" %}
+{% set version = "0.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cloud-{{ version }}.tar.gz
-  sha256: c5b63cb8787b4c3bbf7a533141bcae1ec4992d476ea42c3f7dbca1808ad543d2
+  sha256: f32735de262aa3d10899b3e945b6f76a12f9f73f02e72d7694416680bee319dd
 
 build:
   noarch: python
@@ -23,15 +23,16 @@ requirements:
     - pip
   run:
     - python >=3.8
-    - anaconda-cloud-cli
     - anaconda-cloud-auth
+    - anaconda-cli-base
+    - anaconda-client >=1.12.2
+    - backports
 
 test:
   imports:
     - anaconda_cloud
     - anaconda_cli_base
     - anaconda_cloud_auth
-    - anaconda_cloud_cli
     - binstar_client
   commands:
     - anaconda --version
