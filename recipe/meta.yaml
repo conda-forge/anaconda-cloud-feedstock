@@ -6,29 +6,31 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/anaconda_cloud-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/anaconda_cloud-{{ version }}.tar.gz
   sha256: f32735de262aa3d10899b3e945b6f76a12f9f73f02e72d7694416680bee319dd
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - hatchling
     - hatch-vcs >=0.3
     - setuptools-scm >=7.1
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - anaconda-cloud-auth
     - anaconda-cli-base
     - anaconda-client >=1.12.2
     - backports
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - anaconda_cloud
     - anaconda_cli_base
